@@ -1,5 +1,5 @@
 {
-  "name": "node-ssl",
+  "name": "node-webcrypto-ossl",
   "version": "1.0.0",
   "description": "",
   "main": "buildjs/webcrypto.js",

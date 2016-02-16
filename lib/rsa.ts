@@ -4,6 +4,7 @@ import * as key from "./key";
 import {CryptoKey} from "./key";
 import * as native from "./native";
 import * as aes from "./aes";
+import {createUint8Array} from "./utl";
 let base64url = require("base64url");
 
 let ALG_NAME_RSA_PKCS1 = "RSASSA-PKCS1-v1_5";
@@ -92,7 +93,7 @@ export class Rsa extends alg.AlgorithmBase {
                                 throw new Error(`ImportKey: Can not import key from JWK\n${err.message}`);
                             let rsa = new RsaKey(key, <IRsaKeyGenParams>algorithm, key_type ? "private" : "public");
                             rsa.modulusLength = jwk.n.length * 8;
-                            rsa.publicExponent = new Uint8Array(jwk.e);
+                            rsa.publicExponent = createUint8Array(jwk.e);
                             cb(null, rsa);
                         }
                         catch (e) {
@@ -110,7 +111,7 @@ export class Rsa extends alg.AlgorithmBase {
                                 throw new Error(`ImportKey: Can not import key for ${format}\n${err.message}`);
                             let rsa = new RsaKey(key, <IRsaKeyGenParams>algorithm, format.toLocaleLowerCase() === "spki" ? "public" : "private");
                             rsa.modulusLength = jwk.n.length * 8;
-                            rsa.publicExponent = new Uint8Array(jwk.e);
+                            rsa.publicExponent = createUint8Array(jwk.e);
                             cb(null, rsa);
                         }
                         catch (e) {

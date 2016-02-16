@@ -8,7 +8,7 @@ import * as alg from "./alg";
 import * as rsa from "./rsa";
 import * as aes from "./aes";
 import * as ec from "./ec";
-
+import {createUint8Array} from "./utl";
 import * as iwc from "./iwebcrypto";
 
 function prepare_algorithm(alg: iwc.AlgorithmType): iwc.IAlgorithmIdentifier {
@@ -44,7 +44,7 @@ function ab2b(ab: ArrayBuffer) {
  * @param b Buffer value wich must be converted to ArrayBuffer
  */
 function b2ab(b: Buffer): ArrayBuffer {
-    return new Uint8Array(b).buffer;
+    return createUint8Array(b).buffer;
 }
 
 export class SubtleCrypto implements iwc.ISubtleCrypto {
@@ -66,7 +66,7 @@ export class SubtleCrypto implements iwc.ISubtleCrypto {
                         if (err)
                             reject(err);
                         else
-                            resolve(new Uint8Array(digest).buffer);
+                            resolve(b2ab(digest));
                     });
                     break;
                 default:
@@ -140,7 +140,7 @@ export class SubtleCrypto implements iwc.ISubtleCrypto {
                 if (err)
                     reject(err);
                 else
-                    resolve(new Uint8Array(sig).buffer);
+                    resolve(b2ab(sig));
             });
 
         });
@@ -202,7 +202,7 @@ export class SubtleCrypto implements iwc.ISubtleCrypto {
                 if (err)
                     reject(err);
                 else
-                    resolve(new Uint8Array(buf).buffer);
+                    resolve(b2ab(buf));
             });
         });
     }
@@ -232,7 +232,7 @@ export class SubtleCrypto implements iwc.ISubtleCrypto {
                 if (err)
                     reject(err);
                 else
-                    resolve(new Uint8Array(buf).buffer);
+                    resolve(b2ab(buf));
             });
         });
     }
@@ -261,7 +261,7 @@ export class SubtleCrypto implements iwc.ISubtleCrypto {
                 if (err)
                     reject(err);
                 else
-                    resolve(new Uint8Array(buf).buffer);
+                    resolve(b2ab(buf));
             });
         });
     }
